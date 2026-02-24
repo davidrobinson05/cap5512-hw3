@@ -10,7 +10,7 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 
 N = 49
-EARTH_RADIUS = 3959
+EARTH_RADIUS = 3963
 RUNS = 50
 
 POPULATION_SIZE = 50
@@ -83,11 +83,6 @@ toolbox.register("two_opt", two_opt)
 toolbox.register("mate", tools.cxOrdered)
 toolbox.register("mutate", tools.mutShuffleIndexes, indpb=0.05)
 toolbox.register("select", tools.selTournament, tournsize=3)
-
-def perturb(ind):
-    a, b, c, d = sorted(random.sample(range(1, N), 4))
-    new_ind = ind[:a] + ind[c:d] + ind[b:c] + ind[a:b] + ind[d:]
-    return new_ind
 
 def run_once(seed):
     random.seed(seed)
