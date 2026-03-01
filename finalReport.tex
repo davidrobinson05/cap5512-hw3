@@ -36,6 +36,8 @@
 
 \section*{Chosen Genetic Algorithm}
 
+In order to implement a successful optimization of the Traveling-Salesman Problem, we experimented with a variety of problem representations and genetic operators. Additionally, we used a population size of 50, a maximum generation number of 10, a crossover rate of 0.85, a mutation rate of 0.2, and an individual mutation rate of 0.05.
+
 \subsection{Problem Representation}
 Our problem representation was a permutation representation, with each integer corresponding to one of the 49 capital cities of the problem. We selected it because it was the simplest way to verify that each solution only visits each city that’s not the starting point exactly once. We previously considered a binary representation using a matrix to keep track of the full path used in each solution, but rejected it because of the massive $N^2$ memory cost.
 
@@ -48,11 +50,11 @@ The genetic operators we used were Ordered Crossover, Shuffle Indexes Mutation, 
 \subsection{Selection Method}
 We utilized tournament selection with a tournament size of 3, as well as an elitism tactic, where we guarantee that the single best solution is not discarded. Tournament selection promotes strong selection pressure that manages to preserve population diversity as well. We found that using a tournament size of 3 prevented premature convergence while still finding optimal solutions.
 
-\subsection{Reasoning Behind Major Decisions Regarding Algorithm Design}
-remove??
+%\subsection{Reasoning Behind Major Decisions Regarding Algorithm Design}
+%remove??
 
 \section*{Results}
-The shortest tour our GA learned was . Figure 1 shows the route taken by the best solution. Figure 2 and Figure 3 show the best and average fitness, respectively, over 10 generations.
+The shortest tour our GA learned was 10,641.0486. Figure 1 shows the route taken in the best solution. Figure 2 and Figure 3 show the best and average fitness, respectively, over 10 generations.
 
 
 \begin{minipage}{\linewidth}
@@ -87,10 +89,8 @@ The shortest tour our GA learned was . Figure 1 shows the route taken by the bes
 
 
 \section*{Conclusion}
-The Traveling-Salesman Problem (TSP) is one of the most classic optimization problems. It’s unique to many of the other optimization problems we’ve seen in this class as it can be applied to real-world scenarios. Evolutionary computation is a great tool for optimizing the Traveling-Salesman Problem as it involves looking for the best solution in a large search space. With a large \textit{n}, brute force becomes unrealistic. The raw number of permutations that brute-force algorithm would evaluate (with considering the repetition of equivalent routes) is \textit{n}!. For an \textit{n} of 50, this would be 3.04 * 1064 solutions to look through. 
+The Traveling-Salesman Problem (TSP) is one of the most classic optimization problems. It is unique to many of the other optimization problems we have seen in this class as it can be applied to real-world scenarios. Evolutionary computation is a great tool for optimizing the Traveling-Salesman Problem as it involves looking for the best solution in a large search space. With a large \textit{n}, brute force becomes unrealistic. The raw number of permutations a brute-force algorithm would evaluate (considering the repetition of equivalent routes) is \textit{n}!. For an \textit{n} of 50, this would be 3.04 * $10^{64}$ solutions to look through. 
 
-Successfully optimizing the genetic algorithm for the TSP required innovative modifications. Simply changing the rate of mutation and crossover or modifying the selection method and population size is not enough. In order to optimize the algorithm, we had to implement a new crossover method (order crossover) and use 2-opt as a post-processing step (post-mutation and crossover) in order to reach solutions of high-fitness. Optimizing the TSP showed us how dependent the performance of a genetic algorithm is on our choice of operators.  
-
-
+Successful optimization of the genetic algorithm for the TSP requires innovative modifications. Simply changing the rate of mutation and crossover or modifying the selection method and population size is not enough. In order to optimize the algorithm, we had to implement a new crossover method (order crossover) and use 2-opt as a post-processing step (post-mutation and crossover) in order to reach solutions of high-fitness. Optimizing the TSP showed us how dependent the performance of a genetic algorithm is on our choice of operators. Components of a genetic algorithm vary significantly based on the type of problem it's meant to handle.
 
 \end{document}
