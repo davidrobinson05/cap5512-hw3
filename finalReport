@@ -1,0 +1,96 @@
+% chktex-file 9
+% chktex-file 10
+% chktex-file 12
+% chktex-file 17
+% chktex-file 24
+% chktex-file 44
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
+\usepackage[a4paper, top=1.5in, bottom=1.5in, left=1.5in, right=1.5in]{geometry}
+\usepackage{titling}
+\usepackage{float}
+\usepackage{placeins}
+
+\setlength{\droptitle}{-2.75em}
+
+\title{CAP 5512 - Homework 3}
+\author{David Robinson, Myra Syed, Walker Farnsworth}
+\date{March 1, 2026}
+\setlength{\parindent}{0pt}
+
+\setlength{\topskip}{0pt}
+
+\begin{document}
+
+\maketitle
+
+\section*{Chosen Genetic Algorithm}
+
+\subsection{Problem Representation}
+Our problem representation was a permutation representation, with each integer corresponding to one of the 49 capital cities of the problem. We selected it because it was the simplest way to verify that each solution only visits each city that’s not the starting point exactly once. We previously considered a binary representation using a matrix to keep track of the full path used in each solution, but rejected it because of the massive $N^2$ memory cost.
+
+\subsection{Fitness Function}
+The fitness function calculates a total distance traveled across all 49 capital cities and back. This is done by summing the distance between cities in each permutation of cities, adding the distance between the final and first cities in the end to finish the travel solution. The minimal solution is the one with the highest fitness.
+
+\subsection{Genetic Operators}
+The genetic operators we used were Ordered Crossover, Shuffle Indexes Mutation, and 2-opt. Ordered Crossover was used to prevent the creation of invalid routes that would repeat or skip cities, ensuring that new generations of possible solutions were all valid on a fundamental level outlined by the criteria of the Traveling Salesman Problem. Shuffle Indexes was used for mutation because it was appropriate for the problem, slightly altering small parts of the route upon each mutation rather than significantly altering the route every time, ultimately preventing a large mess of seemingly random solutions. 2-opt was utilized to remove path crossings by reverse engineering alternative paths based on the state of two selected edges. This allows the solutions to evolve more cleanly without having to untangle incredibly problematic routes riddled with path crossings.
+
+\subsection{Selection Method}
+We utilized tournament selection with a tournament size of 3, as well as an elitism tactic, where we guarantee that the single best solution is not discarded. Tournament selection promotes strong selection pressure that manages to preserve population diversity as well. We found that using a tournament size of 3 prevented premature convergence while still finding optimal solutions.
+
+\subsection{Reasoning Behind Major Decisions Regarding Algorithm Design}
+remove??
+
+\section*{Results}
+The shortest tour our GA learned was . Figure 1 shows the route taken by the best solution. Figure 2 and Figure 3 show the best and average fitness, respectively, over 10 generations.
+
+
+\begin{minipage}{\linewidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=\linewidth]{best.png}
+            \caption{Map of Best Solution}
+            \label{fig:bestMap}
+        \end{figure}
+\end{minipage}
+
+\FloatBarrier
+\FloatBarrier
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=.8\linewidth]{bestFitnessChart.png}
+        \captionof{figure}{Best Fitness Chart}
+        \label{fig:test1}
+    \end{minipage}%
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=.8\linewidth]{meanFitnessChart.png}
+        \captionof{figure}{Mean Fitness Chart}
+        \label{fig:test2}
+\end{minipage}
+\end{figure}
+
+
+
+\section*{Conclusion}
+The Traveling-Salesman Problem (TSP) is one of the most classic optimization problems. It’s unique to many of the other optimization problems we’ve seen in this class as it can be applied to real-world scenarios. Evolutionary computation is a great tool for optimizing the Traveling-Salesman Problem as it involves looking for the best solution in a large search space. With a large \textit{n}, brute force becomes unrealistic. The raw number of permutations that brute-force algorithm would evaluate (with considering the repetition of equivalent routes) is \textit{n}!. For an \textit{n} of 50, this would be 3.04 * 1064 solutions to look through. 
+
+Successfully optimizing the genetic algorithm for the TSP required innovative modifications. Simply changing the rate of mutation and crossover or modifying the selection method and population size is not enough. In order to optimize the algorithm, we had to implement a new crossover method (order crossover) and use 2-opt as a post-processing step (post-mutation and crossover) in order to reach solutions of high-fitness. Optimizing the TSP showed us how dependent the performance of a genetic algorithm is on our choice of operators.  
+
+
+
+\end{document}
