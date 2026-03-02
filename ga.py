@@ -1,6 +1,7 @@
 #Requires "tsp.dat" to be in the same file directory
 #Plots of Best and Average Fitness over generationswill appear in 'chart.png'
 #Map of route taken by best solution will appear in "best.png"
+#Both figures will appear in the "figures" folder
 #Run code with "python ga.py"
 
 import random
